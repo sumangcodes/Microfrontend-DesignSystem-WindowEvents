@@ -15,9 +15,10 @@ const Cart = () => {
 
   useEffect(() => {
     console.log("Window object:", window);  // Prints the window object to the console
+
     const handleAddToCart = (event) => {
       const product = event.detail;
-      console.log(`Received product in cart: ID - ${product.id}, Name - ${product.name}`);
+      console.log(`Received product in cart: ID - ${product.id}, Name - ${product.name}, Price - ₹${product.price}`);
       setCartItems((prevItems) => {
         const exists = prevItems.some((item) => item.id === product.id);
         if (exists) {
@@ -27,13 +28,17 @@ const Cart = () => {
         return [...prevItems, product];
       });
     };
+
     console.log("Setting up listener for add-to-cart event");
     window.addEventListener('add-to-cart', handleAddToCart);
+
     return () => {
       console.log("Cleaning up listener for add-to-cart event");
       window.removeEventListener('add-to-cart', handleAddToCart);
     };
   }, []);
+
+  const cartTotal = cartItems.reduce((total, item) => total + item.price, 0);  // Calculate total price
 
   return (
     <ThemeProvider theme={theme}>
@@ -42,11 +47,16 @@ const Cart = () => {
         {cartItems.length === 0 ? (
           <p>Your cart is empty.</p>
         ) : (
-          <ul>
-            {cartItems.map((item) => (
-              <li key={item.id}>{item.name}</li>
-            ))}
-          </ul>
+          <>
+            <ul>
+              {cartItems.map((item) => (
+                <li key={item.id}>
+                  {item.name} - ₹{item.price.toLocaleString()}
+                </li>
+              ))}
+            </ul>
+            <h3>Total: ₹{cartTotal.toLocaleString()}</h3>
+          </>
         )}
       </CartWrapper>
     </ThemeProvider>

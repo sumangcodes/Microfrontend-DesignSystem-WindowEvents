@@ -12,22 +12,21 @@ const MicrofrontendWrapper = styled.div`
 
 const ProductList = () => {
   const products = [
-    { id: 1, name: "Laptop" },
-    { id: 2, name: "Phone" },
+    { id: 1, name: "Laptop", price: 60000 },
+    { id: 2, name: "Phone", price: 30000 },
   ];
 
   const handleAddToCart = (product) => {
     console.log(`Emitting add-to-cart event for product ID: ${product.id}`);
-    console.log("Window object before dispatch:", window);  // Debugging window
+    console.log("Window object before dispatch:", window);
 
-    // Ensure cross-browser compatibility with CustomEvent
     const customEvent = new CustomEvent('add-to-cart', {
       detail: product,
       bubbles: true,
-      cancelable: true
+      cancelable: true,
     });
 
-    window.dispatchEvent(customEvent); // Dispatch event to global window object
+    window.dispatchEvent(customEvent);
   };
 
   return (
@@ -37,7 +36,7 @@ const ProductList = () => {
         <ul>
           {products.map((product) => (
             <li key={product.id}>
-              {product.name}{" "}
+              {product.name} - ₹{product.price.toLocaleString()}{" "}
               <Button onClick={() => handleAddToCart(product)}>
                 Add to Cart
               </Button>
