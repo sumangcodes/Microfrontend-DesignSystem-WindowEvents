@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project showcases a microfrontend architecture using React and a custom design system built with Styled Components, featuring dynamic communication between microfrontends through window events. It includes a product catalog and shopping cart with a techie, Amazon-like design system for consistent styling across components.
+This project showcases a microfrontend architecture using React and a custom design system built with Styled Components, featuring dynamic communication between microfrontends through window events. It includes a product catalog and shopping cart with a  design system for consistent styling across components.
 
 ## Tech Stack
 
